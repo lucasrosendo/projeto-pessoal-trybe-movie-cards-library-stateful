@@ -1,24 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
+import movies from '../data';
 import MovieCard from './MovieCard';
+import SearchBar from './SearchBar';
+// import AddMovie from './AddMovie';
 
 class MovieList extends React.Component {
   render() {
-    const { movies } = this.props;
-
     return (
-      <div data-testid="movie-list" className="movie-list">
-        { movies.map((movie) => <MovieCard key={ movie.title } movie={ movie } />) }
+      <div>
+        <section>
+          <SearchBar />
+        </section>
+        <div data-testid="movie-list" className="movie-list">
+          { movies.map(
+            (movieList) => <MovieCard key={ movieList.title } movie={ movieList } />,
+          )}
+        </div>
+        <section>
+          {/* <AddMovie /> */}
+        </section>
       </div>
     );
   }
 }
-
-MovieList.propTypes = {
-  movies: PropTypes.arrayOf(
-    PropTypes.object,
-  ).isRequired,
-};
 
 export default MovieList;
