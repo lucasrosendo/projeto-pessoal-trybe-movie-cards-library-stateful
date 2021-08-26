@@ -16,9 +16,6 @@ class MovieList extends React.Component {
             (movieList) => <MovieCard key={ movieList.title } movie={ movieList } />,
           )}
         </div>
-        <section>
-          {/* <AddMovie /> */}
-        </section>
       </div>
     );
   }
