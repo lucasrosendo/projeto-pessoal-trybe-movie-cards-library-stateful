@@ -15,6 +15,7 @@ class RatingForm extends React.Component {
             value={ value }
             id="rating"
             onChange={ onChange }
+            defaultValue="0"
           />
         </label>
       </section>

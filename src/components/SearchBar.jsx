@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 class SearchBar extends Component {
   render() {
     const {
-      procurar,
-      marcador,
-      selecionar,
+      searchText,
+      bookmarkedOnly,
+      selectedGenre,
       onSearchTextChange,
       onBookmarkedChange,
       onSelectedGenreChange } = this.props;
@@ -17,7 +17,7 @@ class SearchBar extends Component {
           <input
             type="text"
             id="searchText"
-            value={ procurar }
+            value={ searchText }
             onChange={ onSearchTextChange }
             data-testid="text-input"
           />
@@ -27,7 +27,7 @@ class SearchBar extends Component {
           <input
             type="checkbox"
             id="bookmarkedOnly"
-            checked={ marcador }
+            checked={ bookmarkedOnly }
             onChange={ onBookmarkedChange }
             data-testid="checkbox-input"
           />
@@ -36,7 +36,7 @@ class SearchBar extends Component {
           Filtrar por gênero
           <select
             id="selectedGenre"
-            value={ selecionar }
+            value={ selectedGenre }
             onChange={ onSelectedGenreChange }
             data-testid="select-input"
           >
@@ -52,18 +52,18 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  procurar: PropTypes.string,
+  searchText: PropTypes.string,
   onSearchTextChange: PropTypes.func.isRequired,
-  marcador: PropTypes.bool,
+  bookmarkedOnly: PropTypes.bool,
   onBookmarkedChange: PropTypes.func.isRequired,
-  selecionar: PropTypes.string,
+  selectedGenre: PropTypes.string,
   onSelectedGenreChange: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {
-  procurar: '',
-  marcador: false,
-  selecionar: '',
+  searchText: '',
+  bookmarkedOnly: false,
+  selectedGenre: '',
 };
 
 export default SearchBar;

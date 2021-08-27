@@ -45,12 +45,12 @@ class AddMovie extends React.Component {
     return (
       <section>
         <form data-testid="add-movie-form">
-          <TitleForm value={ title } onChange={ this.handleChange } />
-          <SubtitleForm value={ subtitle } onChange={ this.handleChange } />
-          <ImagePathForm value={ imagePath } onChange={ this.handleChange } />
-          <StorylineForm value={ storyline } onChange={ this.handleChange } />
-          <RatingForm value={ rating } onChange={ this.handleChange } />
-          <GenreForm value={ genre } onChange={ this.handleChange } />
+          <TitleForm title={ title } onChange={ this.handleChange } />
+          <SubtitleForm subtitle={ subtitle } onChange={ this.handleChange } />
+          <ImagePathForm imagePath={ imagePath } onChange={ this.handleChange } />
+          <StorylineForm storyline={ storyline } onChange={ this.handleChange } />
+          <RatingForm rating={ rating } onChange={ this.handleChange } />
+          <GenreForm genre={ genre } onChange={ this.handleChange } />
           <button
             data-testid="send-button"
             type="submit"
