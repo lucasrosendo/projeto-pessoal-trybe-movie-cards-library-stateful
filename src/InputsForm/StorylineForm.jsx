@@ -8,7 +8,7 @@ class StorylineForm extends React.Component {
       <section>
         <label htmlFor="storyline-f" data-testid="storyline-input-label">
           Sinopse
-          <input
+          <textarea
             data-testid="storyline-input"
             type="textarea"
             name="storyline-f"
