@@ -1,13 +1,19 @@
-import React from 'react';
+// Este componente renderiza o formulário de adição de novo filme, e o que ele faz é basicamente renderizar um componente para cada elemento do formulário;
+// Quando cada componente é alterado, a função handleChange é acionada passando o target do event como parametro, e alterando o estado com o nome do target e seu valor ...
+// ... para isso é importante que a propriedade 'nome' de cada target tenha o mesmo nome dos estados do componente AddMovie;
+// Por fim existe um botão renderizado que recebe a chamada da função addMovie de 'MovieLibrary' e quando clicado, este botão executa a função handleClick passando addMovie como parâmetro.
+// Quando passada por parâmetro, dentro de handleClick, a função addMovie é executada recebendo como parâmetro o estado do componente AddMovie.
+// Lembre-se que addMovie() cria um filme novo e adiciona ao array de movies lá no componente pai (MovieLibrary)
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SubtitleForm from '../InputsForm/SubtitleForm';
-import TitleForm from '../InputsForm/TitleForm';
-import ImagePathForm from '../InputsForm/ImagePathForm';
-import StorylineForm from '../InputsForm/StorylineForm';
-import RatingForm from '../InputsForm/RatingForm';
-import GenreForm from '../InputsForm/GenreForm';
+import Titulo from './Titulo';
+import Subtitulo from './Subtitulo';
+import Sinopse from './Sinopse';
+import Avaliacao from './Avaliacao';
+import Genero from './Genero';
+import ImagePath from './ImagePath';
 
-class AddMovie extends React.Component {
+class AddMovie extends Component {
   constructor() {
     super();
     this.state = {
@@ -18,17 +24,19 @@ class AddMovie extends React.Component {
       rating: 0,
       genre: 'action',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+  handleChange({ target }) {
+    const { name } = target;
+    this.setState({ [name]: target.value });
   }
 
-  handleClick = () => {
-    const { onClick } = this.props;
-    onClick(this.state);
+  handleClick(callback) {
+    callback(this.state);
     this.setState({
       subtitle: '',
       title: '',
@@ -39,34 +47,39 @@ class AddMovie extends React.Component {
     });
   }
 
-  render() {
-    const { title, subtitle, imagePath, storyline,
-      rating, genre } = this.state;
-    return (
-      <section>
-        <form data-testid="add-movie-form">
-          <TitleForm title={ title } onChange={ this.handleChange } />
-          <SubtitleForm subtitle={ subtitle } onChange={ this.handleChange } />
-          <ImagePathForm imagePath={ imagePath } onChange={ this.handleChange } />
-          <StorylineForm storyline={ storyline } onChange={ this.handleChange } />
-          <RatingForm rating={ rating } onChange={ this.handleChange } />
-          <GenreForm genre={ genre } onChange={ this.handleChange } />
-          <button
-            data-testid="send-button"
-            type="submit"
-            onClick={ this.handleClick }
-          >
-            Adicionar filme
-          </button>
-        </form>
+  handleSubmit(event) {
+    event.preventDefault();
+  }
 
-      </section>
+  render() {
+    const {
+      onClick,
+    } = this.props;
+
+    const { title, subtitle, rating, genre, imagePath, storyline } = this.state;
+
+    return (
+      <form onSubmit={ this.handleSubmit } data-testid="add-movie-form">
+        <Titulo titulo={ title } onChange={ this.handleChange } />
+        <Subtitulo subtitulo={ subtitle } onChange={ this.handleChange } />
+        <ImagePath imagem={ imagePath } onChange={ this.handleChange } />
+        <Sinopse copy={ storyline } onChange={ this.handleChange } />
+        <Avaliacao nota={ Number(rating) } onChange={ this.handleChange } />
+        <Genero genero={ genre } onChange={ this.handleChange } />
+        <button
+          data-testid="send-button"
+          type="submit"
+          onClick={ () => this.handleClick(onClick) }
+        >
+          Adicionar filme
+        </button>
+      </form>
     );
   }
 }
 
 AddMovie.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
+  onClick: PropTypes.func,
+}.isRequired;
 
 export default AddMovie;

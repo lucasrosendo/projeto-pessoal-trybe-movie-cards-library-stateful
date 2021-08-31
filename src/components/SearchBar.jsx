@@ -1,51 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Input from './Input';
+import Select from './Select';
 
 class SearchBar extends Component {
   render() {
     const {
       searchText,
-      bookmarkedOnly,
-      selectedGenre,
       onSearchTextChange,
+      bookmarkedOnly,
       onBookmarkedChange,
-      onSelectedGenreChange } = this.props;
+      selectedGenre,
+      onSelectedGenreChange,
+    } = this.props; // recebe as props passadas por MovieLibrary
+
     return (
       <form data-testid="search-bar-form">
-        <label htmlFor="searchText" data-testid="text-input-label">
-          Inclui o texto:
-          <input
-            type="text"
-            id="searchText"
-            value={ searchText }
-            onChange={ onSearchTextChange }
-            data-testid="text-input"
-          />
-        </label>
-        <label htmlFor="bookmarkedOnly" data-testid="checkbox-input-label">
-          Mostrar somente favoritos
-          <input
-            type="checkbox"
-            id="bookmarkedOnly"
-            checked={ bookmarkedOnly }
-            onChange={ onBookmarkedChange }
-            data-testid="checkbox-input"
-          />
-        </label>
-        <label htmlFor="selectedGenre" data-testid="select-input-label">
-          Filtrar por gênero
-          <select
-            id="selectedGenre"
-            value={ selectedGenre }
-            onChange={ onSelectedGenreChange }
-            data-testid="select-input"
-          >
-            <option data-testid="select-option" value="">Todos</option>
-            <option data-testid="select-option" value="action">Ação</option>
-            <option data-testid="select-option" value="comedy">Comédia</option>
-            <option data-testid="select-option" value="thriller">Suspense</option>
-          </select>
-        </label>
+        <Input
+          labelDataTestId="text-input-label"
+          inputType="text"
+          nome="searchText"
+          labelText="Inclui o texto"
+          value={ searchText }
+          onChange={ onSearchTextChange }
+          inputDataTestId="text-input"
+        />
+        <Input
+          labelDataTestId="checkbox-input-label"
+          inputType="checkbox"
+          nome="bookmarkedOnly"
+          labelText="Mostrar somente favoritos"
+          checked={ bookmarkedOnly }
+          onChange={ onBookmarkedChange }
+          inputDataTestId="checkbox-input"
+        />
+        <Select
+          labelDataTestId="select-input-label"
+          value={ selectedGenre }
+          onChange={ onSelectedGenreChange }
+          optionDataTestId="select-option"
+          nome="selectedGenre"
+        />
+
       </form>
     );
   }
@@ -53,17 +49,11 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   searchText: PropTypes.string,
-  onSearchTextChange: PropTypes.func.isRequired,
+  onSearchTextChange: PropTypes.func,
   bookmarkedOnly: PropTypes.bool,
-  onBookmarkedChange: PropTypes.func.isRequired,
+  onBookmarkedChange: PropTypes.func,
   selectedGenre: PropTypes.string,
-  onSelectedGenreChange: PropTypes.func.isRequired,
-};
-
-SearchBar.defaultProps = {
-  searchText: '',
-  bookmarkedOnly: false,
-  selectedGenre: '',
-};
+  onSelectedGenreChange: PropTypes.func,
+}.isRequired;
 
 export default SearchBar;
